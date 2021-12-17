@@ -2,6 +2,16 @@
 
 Building an echo sever in Java to learn more about Java, sockets and software delivery.
 
+### How to run app 
+
+- Clone the repo 
+- If running in vs code :
+  - run `./gradlew build` to build the gradle project. 
+- If running in intellij :
+  - Open up the gradle project window and execute the build task. 
+  - You can also just click the build button. 
+  - To run the actual project once built :
+
 ###  Overview
 Building an echo server to introduce myself to networking fundamentals.
 
