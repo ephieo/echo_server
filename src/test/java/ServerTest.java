@@ -39,6 +39,7 @@ class ServerTest {
           }
 
           mockClientSocket.close();
+          mockServerSocket.close();
     }
     @Test
     public void printsMessage () throws IOException {
