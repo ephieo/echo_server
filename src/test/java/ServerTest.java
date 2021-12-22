@@ -17,17 +17,10 @@ import org.mockito.Mock;
 import java.io.IOException;
 
 
-//@RunWith(MockitoJUnitRunner.class)
+
 class ServerTest {
 
-//    @BeforeEach
-//    public void setUp (){
-//        System.setOut(new PrintStream(outputStreamCaptor));
-//    }
-//    @AfterEach
-//    public void tearDown() {
-//        System.setOut(standardOut);
-//    }
+
 
     @Mock
     Socket clientSocket;
