@@ -20,14 +20,8 @@ import java.io.IOException;
 
 class ServerTest {
 
-
-
-    @Mock
-    Socket clientSocket;
-
-
     @Test
-    public void practiceTest () throws IOException {
+    public void testingSocketConnection () throws IOException {
           ServerSocket mockServerSocket = mock(ServerSocket.class);
           Socket mockClientSocket = mock(Socket.class);
 
