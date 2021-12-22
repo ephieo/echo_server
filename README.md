@@ -1,4 +1,4 @@
-# Echo Server
+# Echo echo.Server
 
 Building an echo sever in Java to learn more about Java, sockets and software delivery.
 
