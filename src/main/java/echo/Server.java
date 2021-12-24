@@ -4,25 +4,34 @@ import java.io.*;
 import java.net.*;
 
 
-
 public class Server {
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = null;
+        runEchoServer();
+    }
+
+    public static ServerSocket serverSocket = null;
+        public static Socket clientSocket = null;
+
+
+
+    public static void runEchoServer() throws IOException {
 
         try {
-           serverSocket = createServerSocket(7777);
+            serverSocket = createServerSocket(7777);
 
-        } catch(IOException e) {
-             errorMessage("Can't listen on port number 7777",e);
+        } catch (IOException e) {
+            errorMessage("Can't listen on port number 7777", e);
 
         }
-        Socket clientSocket = null;
+
         print("Listening for connection...");
 
-        try{
+        try {
+
             clientSocket = connectClient(serverSocket);
-        }catch(IOException e){
-            errorMessage("***Accept failed!!!***",e);
+
+        } catch (IOException e) {
+            errorMessage("***Accept failed!!!***", e);
 
 
         }
@@ -30,7 +39,33 @@ public class Server {
         print("Connection Successful");
         print("Listening for input");
 
-        PrintWriter output = new PrintWriter(clientSocket.getOutputStream(),true);
+        echoMessage(clientSocket, serverSocket);
+
+
+    }
+
+    public static ServerSocket createServerSocket(int port) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(port);
+        print("***Successful*** " + serverSocket);
+        return serverSocket;
+    }
+
+    public static Socket connectClient(ServerSocket serverSocket) throws IOException {
+        Socket clientSocket = serverSocket.accept();
+        return clientSocket;
+    }
+
+    public static void errorMessage(String message, IOException e) {
+        print(message + e);
+        System.exit(1);
+    }
+
+    public static void print(String text) {
+        System.out.println(text);
+    }
+
+    public static void echoMessage(Socket clientSocket, ServerSocket serverSocket) throws IOException {
+        PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
         BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
         String inputLine = null;
@@ -40,33 +75,17 @@ public class Server {
             print("echo.Server received : " + inputLine);
             output.println(inputLine);
 
-            if(inputLine.equals("bye")){
+            if (inputLine.equals("bye")) {
                 break;
             }
         }
+        closeApp(output, input, clientSocket, serverSocket);
+    }
+
+    public static void closeApp(PrintWriter output, BufferedReader input, Socket clientSocket, ServerSocket serverSocket) throws IOException {
         output.close();
         input.close();
         clientSocket.close();
         serverSocket.close();
-
-    }
-
-
-    public static ServerSocket createServerSocket ( int port) throws IOException{
-        ServerSocket serverSocket = new ServerSocket(port);
-        print("***Successful*** " + serverSocket);
-        return serverSocket;
-    }
-    public static Socket connectClient (ServerSocket serverSocket)throws IOException{
-       Socket clientSocket = serverSocket.accept();
-        return clientSocket ;
-    }
-    public static void errorMessage (String message, IOException e){
-        print(message + e);
-        System.exit(1);
-    }
-
-    public static void print(String text){
-        System.out.println(text);
     }
 }
