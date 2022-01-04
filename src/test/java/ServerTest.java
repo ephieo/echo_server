@@ -1,7 +1,7 @@
-import java.io.*;
 import java.net.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import echo.Server;
@@ -15,10 +15,6 @@ import java.io.IOException;
 
 
 class ServerTest {
-
-
-
-
 
 
     @Test
@@ -35,55 +31,19 @@ class ServerTest {
 
         mockServerSocket.close();
     }
+
     @Test
-    public void testingSocketCloses() throws IOException {
-        ServerSocket mockServerSocket = mock(ServerSocket.class);
-        Socket mockClientSocket = mock(Socket.class);
-        String inputString = "bye\n";
+    public void testingSocketIsCreated() throws IOException {
+        MockSocketWrapper mockSocket = new MockSocketWrapper();
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        ByteArrayInputStream input = new ByteArrayInputStream(inputString.getBytes());
+        Server.runEchoServer(mockSocket);
 
-        when(mockClientSocket.getInputStream()).thenReturn(input);
-        when(mockClientSocket.getOutputStream()).thenReturn(output);
-
-
-        System.setIn(input);
-        System.setOut(new PrintStream(output));
-
-        mockServerSocket.close();
-        mockClientSocket.close();
-
-        verify(mockClientSocket, times(1)).close();
+        assertTrue(mockSocket.wasCreateServerSocketCalled());
+        assertTrue(mockSocket.wasConnectClientCalled());
 
 
     }
 
-//    @Test
-//    public void testingSocketSendsMessage() throws IOException {
-//        Client client = new Client();
-//        Server server = new Server();
-//        System.out.println(server);
-//
-//        String fakeMessage = "Merry Christmas :)\n bye\n";
-////        String connectMessage = "nc localhost 7777\n";
-//        ByteArrayOutputStream output = new ByteArrayOutputStream();
-//        ByteArrayInputStream input = new ByteArrayInputStream(fakeMessage.getBytes());
-//
-//        client.runClient("localhost",7777);
-//        server.runEchoServer();
-//
-//
-//        System.setOut(new PrintStream(output));
-//        System.setIn(input);
-//
-//        assertEquals("Merry Christmas :)\n bye\n".trim(), fakeMessage.trim());
-//
-//        server.serverSocket.close();
-//        server.clientSocket.close();
-//
-//
-//    }
 
     @Test
     public void printsMessage() throws IOException {
@@ -93,11 +53,6 @@ class ServerTest {
 
         assertEquals("message was printed :)", text.trim());
 
-    }
-
-    @Test
-    public void closesOutput() throws IOException {
-//      Server server = new Server;
     }
 
 

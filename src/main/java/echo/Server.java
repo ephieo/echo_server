@@ -6,17 +6,17 @@ import java.net.*;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        runEchoServer();
+        ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
+        runEchoServer(socketWrapper);
     }
 
-    public static ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
     public static ServerSocket serverSocket = null;
     public static Socket clientSocket = null;
     public static PrintWriter output = null;
     public static BufferedReader input = null;
 
 
-    public static void runEchoServer() throws IOException {
+    public static void runEchoServer(SocketWrapper socketWrapper) throws IOException {
 
         try {
             serverSocket = socketWrapper.createServerSocket(7777);
@@ -47,8 +47,6 @@ public class Server {
 
         socketWrapper.echoMessage(output, input);
         socketWrapper.closeApp(serverSocket, clientSocket, output, input);
-
-
 
 
     }
