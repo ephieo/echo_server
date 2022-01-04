@@ -5,13 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import echo.Server;
-import echo.Client;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import echo.Server;
 import org.mockito.Mock;
 
 import java.io.IOException;
