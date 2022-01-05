@@ -5,21 +5,29 @@ import java.net.*;
 
 
 public class Server {
-    public static void main(String[] args) throws IOException {
-        ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
-        runEchoServer(socketWrapper);
+    SocketWrapper socketWrapper;
+    ServerSocket serverSocket;
+    Socket clientSocket;
+    PrintWriter output;
+    BufferedReader input;
+
+
+    public Server(SocketWrapper socketWrapper, ServerSocket serverSocket, Socket clientSocket, PrintWriter output, BufferedReader input) {
+        this.socketWrapper = socketWrapper;
+        this.serverSocket = serverSocket;
+        this.clientSocket = clientSocket;
+        this.output = output;
+        this.input = input;
+
     }
 
-    public static ServerSocket serverSocket = null;
-    public static Socket clientSocket = null;
-    public static PrintWriter output = null;
-    public static BufferedReader input = null;
 
 
-    public static void runEchoServer(SocketWrapper socketWrapper) throws IOException {
+
+    public void runEchoServer() throws IOException {
 
         try {
-            serverSocket = socketWrapper.createServerSocket(7777);
+            this.serverSocket = socketWrapper.createServerSocket(7777);
 
         } catch (IOException e) {
             Utils.errorMessage(Messages.cantListen(), e);
@@ -30,7 +38,7 @@ public class Server {
 
         try {
 
-            clientSocket = socketWrapper.connectClient(serverSocket);
+            this.clientSocket = socketWrapper.connectClient(this.serverSocket);
 
         } catch (IOException e) {
             Utils.errorMessage(Messages.acceptFailed(), e);
@@ -42,11 +50,11 @@ public class Server {
         Utils.print(Messages.listenForInput());
 
 
-        output = new PrintWriter(clientSocket.getOutputStream(), true);
-        input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        this.output = new PrintWriter(clientSocket.getOutputStream(), true);
+        this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
 
-        socketWrapper.echoMessage(output, input);
-        socketWrapper.closeApp(serverSocket, clientSocket, output, input);
+        socketWrapper.echoMessage(this.output, this.input);
+        socketWrapper.closeApp(this.serverSocket, this.clientSocket, this.output, this.input);
 
 
     }
