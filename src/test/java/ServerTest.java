@@ -11,7 +11,6 @@ import echo.Utils;
 import org.junit.jupiter.api.Test;
 
 
-
 class ServerTest {
 
 
@@ -32,8 +31,7 @@ class ServerTest {
 
     @Test
     public void testingInputIsEchoedBack() throws IOException {
-
-        ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
+        MockSocketWrapper mockSocket = new MockSocketWrapper();
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
         PrintWriter output = null;
@@ -41,15 +39,16 @@ class ServerTest {
         ByteArrayInputStream mockInput = new ByteArrayInputStream("HELLO".getBytes());
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
 
-        Server server = new Server(socketWrapper, serverSocket, clientSocket, output, input);
-        server.echoInputOutput(mockOutput,mockInput);
+        Server server = new Server(mockSocket, serverSocket, clientSocket, output, input);
+        server.echoInputOutput(mockOutput, mockInput);
 
-        assertArrayEquals("HELLO\n".getBytes(),mockOutput.toByteArray());
+        assertArrayEquals("HELLO\n".getBytes(), mockOutput.toByteArray());
 
     }
+
     @Test
     public void testingMessageIsEchoedBack() throws IOException {
-        ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
+        MockSocketWrapper mockSocket = new MockSocketWrapper();
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
         String text = "testing if it bounces back...";
@@ -58,10 +57,10 @@ class ServerTest {
         PrintWriter output = new PrintWriter(mockOutput, true);
         BufferedReader input = new BufferedReader(new InputStreamReader(mockInput));
 
-        Server server = new Server(socketWrapper, serverSocket, clientSocket, output, input);
-        server.echoMessage(output,input);
+        Server server = new Server(mockSocket, serverSocket, clientSocket, output, input);
+        server.echoMessage(output, input);
 
-        assertEquals("testing if it bounces back...\n",mockOutput.toString());
+        assertEquals("testing if it bounces back...\n", mockOutput.toString());
 
     }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ServerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-06T13:48:11" hostname="Ephies-MacBook-Pro-2.local" time="0.02">
+<testsuite name="ServerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-06T14:14:14" hostname="Ephies-MacBook-Pro-2.local" time="0.032">
   <properties/>
-  <testcase name="testingMessageIsEchoedBack()" classname="ServerTest" time="0.02"/>
-  <system-out><![CDATA[echo.Server received : testing if it bounces back...
+  <testcase name="testingInputIsEchoedBack()" classname="ServerTest" time="0.032"/>
+  <system-out><![CDATA[echo.Server received : HELLO
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
