@@ -22,7 +22,7 @@ class ServerTest {
         try {
             when(mockServerSocket.accept()).thenReturn(mockClientSocket);
         } catch (IOException e) {
-            Utils.errorMessage("error", e);
+            Utils.exitErrorMessage("error", e);
         }
 
 

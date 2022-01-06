@@ -28,7 +28,7 @@ public class Server {
             this.serverSocket = socketWrapper.createServerSocket(7777);
 
         } catch (IOException e) {
-            Utils.errorMessage(Messages.cantListen(), e);
+            Utils.exitErrorMessage(Messages.cantListen(), e);
 
         }
 
@@ -39,7 +39,7 @@ public class Server {
             this.clientSocket = socketWrapper.connectClient(this.serverSocket);
 
         } catch (IOException e) {
-            Utils.errorMessage(Messages.acceptFailed(), e);
+            Utils.exitErrorMessage(Messages.acceptFailed(), e);
 
 
         }
