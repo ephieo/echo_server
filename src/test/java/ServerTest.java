@@ -1,17 +1,15 @@
+import java.io.*;
 import java.net.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import echo.Server;
+import echo.ServerSocketWrapper;
+
 import echo.Utils;
 import org.junit.jupiter.api.Test;
 
-
-import org.mockito.Mock;
-
-import java.io.IOException;
 
 
 class ServerTest {
@@ -32,20 +30,40 @@ class ServerTest {
         mockServerSocket.close();
     }
 
-//    @Test
-//    public void testingSocketIsCreated() throws IOException {
-//       MockSocketWrapper mockSocket = new MockSocketWrapper();
-//
-//       Server server = new Server();
-//
-//       server.runEchoServer(mockSocket);
-//
-//       assertTrue(mockSocket.wasCreateServerSocketCalled());
-//        assertTrue(mockSocket.wasConnectClientCalled());
-//
-//
-//
-//    }
+    @Test
+    public void testingInputIsEchoedBack() throws IOException {
+
+        ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
+        PrintWriter output = null;
+        BufferedReader input = null;
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("HELLO".getBytes());
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+
+        Server server = new Server(socketWrapper, serverSocket, clientSocket, output, input);
+        server.echoInputOutput(mockOutput,mockInput);
+
+        assertArrayEquals("HELLO\n".getBytes(),mockOutput.toByteArray());
+
+    }
+    @Test
+    public void testingMessageIsEchoedBack() throws IOException {
+        ServerSocketWrapper socketWrapper = new ServerSocketWrapper();
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
+        String text = "testing if it bounces back...";
+        ByteArrayInputStream mockInput = new ByteArrayInputStream(text.getBytes());
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+        PrintWriter output = new PrintWriter(mockOutput, true);
+        BufferedReader input = new BufferedReader(new InputStreamReader(mockInput));
+
+        Server server = new Server(socketWrapper, serverSocket, clientSocket, output, input);
+        server.echoMessage(output,input);
+
+        assertEquals("testing if it bounces back...\n",mockOutput.toString());
+
+    }
 
 
     @Test
@@ -57,8 +75,6 @@ class ServerTest {
         assertEquals("message was printed :)", text.trim());
 
     }
-
-
 
 
 }

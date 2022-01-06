@@ -22,8 +22,6 @@ public class Server {
     }
 
 
-
-
     public void runEchoServer() throws IOException {
 
         try {
@@ -49,13 +47,32 @@ public class Server {
         Utils.print(Messages.connectionSuccessful());
         Utils.print(Messages.listenForInput());
 
-
-        this.output = new PrintWriter(clientSocket.getOutputStream(), true);
-        this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
-
-        socketWrapper.echoMessage(this.output, this.input);
+        echoInputOutput(this.clientSocket.getOutputStream(), this.clientSocket.getInputStream());
         socketWrapper.closeApp(this.serverSocket, this.clientSocket, this.output, this.input);
 
+
+    }
+
+    public void echoInputOutput(OutputStream output, InputStream input) throws IOException {
+        var writer = new PrintWriter(output, true);
+        var reader = new BufferedReader(new InputStreamReader(input));
+
+        echoMessage(writer, reader);
+        writer.flush();
+
+    }
+
+    public void echoMessage(PrintWriter output, BufferedReader input) throws IOException {
+        String inputLine = null;
+        while ((inputLine = input.readLine()) != null) {
+
+            Utils.print(Messages.echoReceived(inputLine));
+            output.println(inputLine);
+
+            if (inputLine.equals(Messages.bye())) {
+                break;
+            }
+        }
 
     }
 

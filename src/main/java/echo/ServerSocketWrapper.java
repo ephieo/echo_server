@@ -25,21 +25,6 @@ public class ServerSocketWrapper implements SocketWrapper {
 
 
     @Override
-    public void echoMessage(PrintWriter output, BufferedReader input) throws IOException {
-        String inputLine = null;
-        while ((inputLine = input.readLine()) != null) {
-
-            Utils.print(Messages.echoReceived(inputLine));
-            output.println(inputLine);
-
-            if (inputLine.equals(Messages.bye())) {
-                break;
-            }
-        }
-
-    }
-
-    @Override
     public void closeApp(ServerSocket serverSocket, Socket clientSocket, PrintWriter output, BufferedReader input) throws IOException {
         output.close();
         input.close();

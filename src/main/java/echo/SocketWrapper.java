@@ -10,7 +10,5 @@ public interface SocketWrapper {
 
     Socket connectClient(ServerSocket serverSocket)throws IOException;
 
-    void echoMessage(PrintWriter output, BufferedReader input)throws IOException;
-
     void closeApp(ServerSocket serverSocket, Socket clientSocket, PrintWriter output, BufferedReader input)throws IOException;
 }
