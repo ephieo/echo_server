@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Main {
+public class App {
     public static void main(String[] args)  throws IOException{
         SocketWrapper socketWrapper = new ServerSocketWrapper();
         ServerSocket serverSocket = null;

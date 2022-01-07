@@ -19,4 +19,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-mainClassName = 'Server'
+mainClassName = 'App'

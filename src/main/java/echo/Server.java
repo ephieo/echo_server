@@ -54,11 +54,11 @@ public class Server {
     }
 
     public void echoInputOutput(OutputStream output, InputStream input) throws IOException {
-        var writer = new PrintWriter(output, true);
-        var reader = new BufferedReader(new InputStreamReader(input));
+        this.output = new PrintWriter(output, true);
+        this.input = new BufferedReader(new InputStreamReader(input));
 
-        echoMessage(writer, reader);
-        writer.flush();
+        echoMessage(this.output, this.input);
+       this.output.flush();
 
     }
 
