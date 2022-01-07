@@ -8,16 +8,16 @@ public class Server {
     SocketWrapper socketWrapper;
     ServerSocket serverSocket;
     Socket clientSocket;
-    PrintWriter output;
-    BufferedReader input;
+    PrintWriter writer;
+    BufferedReader reader;
 
 
-    public Server(SocketWrapper socketWrapper, ServerSocket serverSocket, Socket clientSocket, PrintWriter output, BufferedReader input) {
+    public Server(SocketWrapper socketWrapper, ServerSocket serverSocket, Socket clientSocket, PrintWriter writer, BufferedReader reader) {
         this.socketWrapper = socketWrapper;
         this.serverSocket = serverSocket;
         this.clientSocket = clientSocket;
-        this.output = output;
-        this.input = input;
+        this.writer = writer;
+        this.reader = reader;
 
     }
 
@@ -48,17 +48,17 @@ public class Server {
         Utils.print(Messages.listenForInput());
 
         echoInputOutput(this.clientSocket.getOutputStream(), this.clientSocket.getInputStream());
-        socketWrapper.closeApp(this.serverSocket, this.clientSocket, this.output, this.input);
+        socketWrapper.closeApp(this.serverSocket, this.clientSocket, this.writer, this.reader);
 
 
     }
 
     public void echoInputOutput(OutputStream output, InputStream input) throws IOException {
-        this.output = new PrintWriter(output, true);
-        this.input = new BufferedReader(new InputStreamReader(input));
+        this.writer = new PrintWriter(output, true);
+        this.reader = new BufferedReader(new InputStreamReader(input));
 
-        echoMessage(this.output, this.input);
-       this.output.flush();
+        echoMessage(this.writer, this.reader);
+        this.writer.flush();
 
     }
 

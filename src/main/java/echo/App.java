@@ -8,14 +8,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class App {
-    public static void main(String[] args)  throws IOException{
+    public static void main(String[] args) throws IOException {
         SocketWrapper socketWrapper = new ServerSocketWrapper();
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
-        PrintWriter output = null;
-        BufferedReader input = null;
+        PrintWriter writer = null;
+        BufferedReader reader = null;
 
-        Server server = new Server(socketWrapper,serverSocket,clientSocket,output,input);
+        Server server = new Server(socketWrapper, serverSocket, clientSocket, writer, reader);
         server.runEchoServer();
 
     }
