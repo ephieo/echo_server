@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ServerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-01-07T12:24:25" hostname="Ephies-MacBook-Pro-2.local" time="1.006">
+  <properties/>
+  <testcase name="testingSocketConnection()" classname="ServerTest" time="0.989"/>
+  <testcase name="testingMessageIsEchoedBack()" classname="ServerTest" time="0.01"/>
+  <testcase name="testingInputIsEchoedBack()" classname="ServerTest" time="0.002"/>
+  <testcase name="printsMessage()" classname="ServerTest" time="0.001"/>
+  <system-out><![CDATA[echo.Server received : testing if it bounces back...
+echo.Server received : HELLO
+message was printed :)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

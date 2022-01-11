@@ -1,0 +1,3 @@
+5echo.Server received : testing if it bounces back...
+echo.Server received : HELLO
+message was printed :)
